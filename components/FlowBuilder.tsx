@@ -19,10 +19,12 @@ import '@xyflow/react/dist/style.css';
 import TextNode from './TextNode';
 import NodesPanel from './NodesPanel';
 import SettingsPanel from './SettingsPanel';
+import AiNode from './AiNode';
+import { nodeConfigs } from './nodeConfig';
 
 // Define custom node types
 const nodeTypes: NodeTypes = {
-  textNode: TextNode,
+  textNode: TextNode
 };
 
 // Use highly unique IDs to avoid HMR overlap preventing valid edges
@@ -75,6 +77,9 @@ export default function FlowBuilder() {
       const type = event.dataTransfer.getData('application/reactflow');
       if (!type) return;
 
+      const config = nodeConfigs[type];
+      if (!config) return; // Safety check
+
       const reactFlowBounds = event.currentTarget.getBoundingClientRect();
       const position = {
         x: event.clientX - reactFlowBounds.left,
@@ -83,9 +88,9 @@ export default function FlowBuilder() {
 
       const newNode: Node = {
         id: getId(),
-        type: 'textNode',
+        type: config.type,
         position,
-        data: { label: 'Send Message' },
+        data: { ...config.defaultData },
       };
 
       setNodes((nds) => nds.concat(newNode));
