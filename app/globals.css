@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* Ensure full height for the app */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#__next {
+  height: 100%;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
