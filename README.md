@@ -1,28 +1,6 @@
 # BiteSpeed Chatbot Flow Builder
 
-A visual chatbot flow builder built with React, Next.js, and React Flow. This application allows users to create an automated flow of conversation nodes by visually dragging and dropping components onto a node-based architecture. 
-
-It was built specifically as a Frontend Task and matches all the provided constraints and design aesthetics accurately.
-
-## 🚀 Live Demo
-
-[Host your project on Vercel and paste link here]
-
-## ✨ Features
-
-- **Text Message Nodes**: Beautifully styled WhatsApp-like message components with custom header icons.
-- **Dynamic Configuration**: Click on any placed node to dynamically load a Settings Panel on the right. Modify the text context completely interactively with live preview on the node module.
-- **Node Validation Logic**: Only one connection object point is permitted per Source handle (right edge). Multiple dependencies can connect independently to Target handles (left edges).
-- **Save Integrity Checker**: Enforces completion validation. A warning triggers ("Cannot save flow") if unattached components map loosely outside of proper parent connections (disallowing `components with target handles > 1` if multiple nodes are placed in sequence).
-- **Modular Design architecture**: Designed natively with React nodes allowing instant dropping in of components like (ImageNodes, VideoNodes, Links etc.) in the future using isolated `registry` imports.
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 14+ (App Router)
-- **UI Library**: React 19 Native hooks
-- **Flow Engine**: React Flow (`@xyflow/react`)
-- **Styling**: Tailwind CSS
-- **Language**: TypeScript
+A visual chatbot flow builder built with React, Next.js, and React Flow. This application allows users to create an automated flow of conversation nodes by visually dragging and dropping components onto a node-based architecture.
 
 ## 📦 Installation
 Make sure you have `pnpm` or `npm` installed. Run the command using your preferred package manager.
@@ -114,10 +92,3 @@ export const nodeConfigs: Record<string, NodeConfig> = {
 ```
 
 Done! Your new node will show up in the panel, work with drag-and-drop, and use the right default values. The config system handles all the wiring automatically, so you don't need to touch `NodesPanel.tsx` or add any conditional checks.
-
-## 📄 License
-MIT
-
-## 👤 Author
-Priyanshu Tiwari
-# Bitspeed_asgn
