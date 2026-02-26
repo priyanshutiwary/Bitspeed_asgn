@@ -19,7 +19,6 @@ import '@xyflow/react/dist/style.css';
 import TextNode from './TextNode';
 import NodesPanel from './NodesPanel';
 import SettingsPanel from './SettingsPanel';
-import AiNode from './AiNode';
 import { nodeConfigs } from './nodeConfig';
 
 // Define custom node types
