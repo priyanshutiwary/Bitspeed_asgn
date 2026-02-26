@@ -43,29 +43,29 @@ The project is structured efficiently into simple components mapped primarily in
 - **`TextNode.tsx`**: Specific interface configuration enforcing target connections strictly on position-left and sending connections strictly to position-right, overriding native flow layouts to map accurately against the target screenshot UI.
 - **`NodesPanel.tsx` / `SettingsPanel.tsx`**: Controlled interface that conditionally renders on the side UI. Settings panels extract dynamic memory context via pure UUID checks ensuring layout reflow efficiency during edits.
 
-## 🤝 Contributing / Custom Node Creation
+## 🤝 Adding Your Own Node Types
 
-Want to add a custom Video node, Image node, or any other node type? The architecture now uses a centralized configuration system that makes it incredibly easy!
+Want to add a video node, image node, or something completely custom? I've set up a config-based system that makes this super straightforward.
 
-### Adding a New Node Type (3 Simple Steps)
+### How to Add a New Node
 
-**Step 1: Create Your Node Component**
+**Step 1: Build the node component**
 
-Create a new file `components/YourNode.tsx`:
+Create a new file like `components/VideoNode.tsx`. You can copy `TextNode.tsx` as a starting point and customize it:
 
 ```typescript
 'use client';
 import { memo } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
 
-function YourNode({ data, selected }: NodeProps) {
+function VideoNode({ data, selected }: NodeProps) {
   return (
     <div className={`shadow-md rounded-md bg-white min-w-[250px] ${selected ? 'ring-1 ring-blue-500' : ''}`}>
-      <div className="flex items-center justify-between px-3 py-1 bg-[#yourColor]">
-        <div className="text-[11px] font-bold">Your Node Type</div>
+      <div className="flex items-center justify-between px-3 py-1 bg-purple-200">
+        <div className="text-[11px] font-bold">Send Video</div>
       </div>
       <div className="px-3 py-3 text-xs text-gray-700">
-        {String(data.label || 'default text')}
+        {String(data.label || 'video message')}
       </div>
       <Handle type="target" position={Position.Left} className="w-1.5 h-1.5 bg-gray-400 border-0" />
       <Handle type="source" position={Position.Right} className="w-1.5 h-1.5 bg-gray-400 border-0" />
@@ -73,52 +73,47 @@ function YourNode({ data, selected }: NodeProps) {
   );
 }
 
-export default memo(YourNode);
+export default memo(VideoNode);
 ```
 
-**Step 2: Register in FlowBuilder**
+**Step 2: Register it in FlowBuilder**
 
-Add your node to the `nodeTypes` object in `components/FlowBuilder.tsx`:
+Open `components/FlowBuilder.tsx` and add your node to the `nodeTypes` object:
 
 ```typescript
-import YourNode from './YourNode';
+import VideoNode from './VideoNode';
 
 const nodeTypes: NodeTypes = {
   textNode: TextNode,
   aiNode: AiNode,
-  yourNode: YourNode,  // Add this line
+  videoNode: VideoNode,  // just add this
 };
 ```
 
-**Step 3: Add to Node Configuration**
+**Step 3: Add it to the config**
 
-Add an entry to `nodeConfigs` in `components/nodeConfig.tsx`:
+Open `components/nodeConfig.tsx` and add an entry for your new node:
 
 ```typescript
 export const nodeConfigs: Record<string, NodeConfig> = {
   // ... existing nodes
-  yourNode: {
-    type: 'yourNode',
-    label: 'Your Node',
-    displayName: 'Your Node Display',
-    color: '#f59e0b',
-    defaultData: { label: 'Your default text' },
+  videoNode: {
+    type: 'videoNode',
+    label: 'Video',
+    displayName: 'Send Video',
+    color: '#a855f7',
+    defaultData: { label: 'Video message' },
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        {/* Your SVG icon path */}
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+          d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
       </svg>
     ),
   },
 };
 ```
 
-That's it! Your new node will automatically:
-- Appear in the nodes panel
-- Be draggable onto the canvas
-- Use the correct default data when dropped
-- Work with all existing flow features
-
-No need to modify `NodesPanel.tsx` or add conditional logic in `FlowBuilder.tsx` - the configuration handles everything!
+Done! Your new node will show up in the panel, work with drag-and-drop, and use the right default values. The config system handles all the wiring automatically, so you don't need to touch `NodesPanel.tsx` or add any conditional checks.
 
 ## 📄 License
 MIT
