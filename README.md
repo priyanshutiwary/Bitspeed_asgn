@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BiteSpeed Chatbot Flow Builder
 
-## Getting Started
+A visual chatbot flow builder built with React, Next.js, and React Flow. This application allows users to create an automated flow of conversation nodes by visually dragging and dropping components onto a node-based architecture. 
 
-First, run the development server:
+It was built specifically as a Frontend Task and matches all the provided constraints and design aesthetics accurately.
+
+## 🚀 Live Demo
+
+[Host your project on Vercel and paste link here]
+
+## ✨ Features
+
+- **Text Message Nodes**: Beautifully styled WhatsApp-like message components with custom header icons.
+- **Dynamic Configuration**: Click on any placed node to dynamically load a Settings Panel on the right. Modify the text context completely interactively with live preview on the node module.
+- **Node Validation Logic**: Only one connection object point is permitted per Source handle (right edge). Multiple dependencies can connect independently to Target handles (left edges).
+- **Save Integrity Checker**: Enforces completion validation. A warning triggers ("Cannot save flow") if unattached components map loosely outside of proper parent connections (disallowing `components with target handles > 1` if multiple nodes are placed in sequence).
+- **Modular Design architecture**: Designed natively with React nodes allowing instant dropping in of components like (ImageNodes, VideoNodes, Links etc.) in the future using isolated `registry` imports.
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **UI Library**: React 19 Native hooks
+- **Flow Engine**: React Flow (`@xyflow/react`)
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+
+## 📦 Installation
+Make sure you have `pnpm` or `npm` installed. Run the command using your preferred package manager.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Install dependencies
+npm install
 
+# Run development server
+npm run dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Technical Architecture Details
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project is structured efficiently into simple components mapped primarily inside the `components` folder natively loaded in `page.tsx`:
+- **`FlowBuilder.tsx`**: Core module managing central React Flow hooks (`useNodesState`, `useEdgesState`), save checks arrays, dropping coordinates and Edge definitions.
+- **`TextNode.tsx`**: Specific interface configuration enforcing target connections strictly on position-left and sending connections strictly to position-right, overriding native flow layouts to map accurately against the target screenshot UI.
+- **`NodesPanel.tsx` / `SettingsPanel.tsx`**: Controlled interface that conditionally renders on the side UI. Settings panels extract dynamic memory context via pure UUID checks ensuring layout reflow efficiency during edits.
 
-## Learn More
+## 🤝 Contributing / Custom Node Creation
 
-To learn more about Next.js, take a look at the following resources:
+Want to add a custom Video node or Image node? It's easy!
+1. Build a custom `ImageNode.tsx` similar to `TextNode.tsx`.
+2. Define its key mapping locally in the `TextTypes` export object in `/components/FlowBuilder.tsx`.
+3. Add a wrapper in `/components/NodesPanel.tsx` and set `onDragStart(e, 'imageNode')`!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
+MIT
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👤 Author
+Priyanshu Tiwari
+# Bitspeed_asgn
